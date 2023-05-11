@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import json
 from os import path
 
@@ -44,5 +46,4 @@ class FileStorage:
             obj_dict[key]['updated_at'] = datetime.strptime(
                 obj_dict[key]['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
             self.__objects[key] = class_map[class_name](**obj)
-
 
