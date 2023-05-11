@@ -29,7 +29,6 @@ class FileStorage:
             json.dump(obj_dict, f)
 
     def reload(self):
-<<<<<<< HEAD
         """ deserialization of JSON file to __objects """
         try:
             with open(FileStorage.__file_path, encoding="UTF8") as f:
@@ -40,28 +39,3 @@ class FileStorage:
                 FileStorage.__objects[key] = class_name(**val)
         except FileNotFoundError:
             pass
-=======
-        if not path.exists(self.__file_path):
-            return
-
-        with open(self.__file_path, 'r') as f:
-            obj_dict = json.load(f)
-
-        from models.base_model import BaseModel
-        from models.user import User
-
-        class_map = {
-            'BaseModel': BaseModel,
-            'User': User
-            # Add other classes as needed
-        }
-
-        for key, obj in obj_dict.items():
-            class_name, obj_id = key.split('.')
-            obj_dict[key]['created_at'] = datetime.strptime(
-                obj_dict[key]['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
-            obj_dict[key]['updated_at'] = datetime.strptime(
-                obj_dict[key]['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
-            self.__objects[key] = class_map[class_name](**obj)
-
->>>>>>> eea822d0526c6f5e51d8c0b41fa3623fc17f74ae
