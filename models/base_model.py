@@ -47,4 +47,4 @@ class BaseModel:
         bm_dct['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         bm_dct['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
 
-        return(bm_dict)
+        return(bm_dct)
