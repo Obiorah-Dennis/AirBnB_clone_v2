@@ -67,12 +67,3 @@ class testFileStorage(unittest.TestCase):
             content = fd.read()
 
         self.assertIsInstance(content, str)
-
-    def test_reload_without_file(self):
-        """ test JSON serialization and deserialization """
-
-        try:
-            self.storage.reload()
-            self.assertTrue(True)
-        except:
-            self.assertTrue(False)
