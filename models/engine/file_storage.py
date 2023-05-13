@@ -3,6 +3,7 @@
 import json
 import models
 
+
 class FileStorage:
     """ JSON file serialization and deserialization for instances """
     __file_path = "file.json"
