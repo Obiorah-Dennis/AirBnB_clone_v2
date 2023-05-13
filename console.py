@@ -102,7 +102,7 @@ class HBNBCommand(cmd.Cmd):
         print(obj_list)
 
     def do_update(self, args):
-        """Updates an instance based on the class name and id by adding or updating attribute."""
+        """Updates an instance based on the class name and id by"""
         storage = FileStorage()
         storage.reload()
         args = shlex.split(args)

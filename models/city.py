@@ -1,7 +1,8 @@
 #!/usr/bin/python3
-
+""" module for class city that inherits from BaseModel """
 from models.base_model import BaseModel
 
-class State(BaseModel):
-    name = ""
 
+class City(BaseModel):
+    """ City class """
+    name = ""
