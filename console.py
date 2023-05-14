@@ -152,6 +152,26 @@ class HBNBCommand(cmd.Cmd):
         """EOF command to exit the program."""
         return True
 
+    def do_count(self, args):
+        """fuction to retrieve the number of instances of a class"""
+        obj_list = []
+        storage = FileStorage()
+        storage.reload()
+        objects = storage.all()
+        try:
+            if len(args) != 0:
+                eval(args)
+        except NameError:
+            print("** class doesn't exist **")
+            return
+        for key, val in objects.items():
+            if len(args) != 0:
+                if type(val) is eval(args):
+                    obj_list.append(val)
+            else:
+                obj_list.append(val)
+        print(len(obj_list))
+
     def emptyline(self):
         """ensures an empty line + ENTER shouldn’t execute anything"""
         pass
