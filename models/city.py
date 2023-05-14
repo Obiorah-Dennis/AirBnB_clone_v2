@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+
 """ module for class city that inherits from BaseModel """
 from models.base_model import BaseModel
 
