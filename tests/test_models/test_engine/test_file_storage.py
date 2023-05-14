@@ -15,7 +15,7 @@ class testFileStorage(unittest.TestCase):
     def setUp(self):
         """ set up instances for all tests """
         self.storage = FileStorage()
-        self.my_model = BaseModel()
+        self.test_model = BaseModel()
 
     def tearDown(self):
         """ remove test instances """
@@ -32,16 +32,16 @@ class testFileStorage(unittest.TestCase):
 
     def test_new_method(self):
         """ test attributes """
-        self.storage.new(self.my_model)
-        key = str(self.my_model.__class__.__name__ + "." + self.my_model.id)
+        self.storage.new(self.test_model)
+        key = str(self.test_model.__class__.__name__ + "." + self.test_model.id)
         self.assertTrue(key in self.storage._FileStorage__objects)
 
     def test_objects_value_type(self):
         """ test instances """
-        self.storage.new(self.my_model)
-        key = str(self.my_model.__class__.__name__ + "." + self.my_model.id)
+        self.storage.new(self.test_model)
+        key = str(self.test_model.__class__.__name__ + "." + self.test_model.id)
         val = self.storage._FileStorage__objects[key]
-        self.assertIsInstance(self.my_model, type(val))
+        self.assertIsInstance(self.test_model, type(val))
 
     def test_save_file_exists(self):
         """ test JSON serialization and deserialization """
@@ -51,19 +51,19 @@ class testFileStorage(unittest.TestCase):
     def test_save_file_read(self):
         """ test JSON serialization and deserialization """
         self.storage.save()
-        self.storage.new(self.my_model)
+        self.storage.new(self.test_model)
 
-        with open("file.json", encoding="UTF8") as fd:
-            content = json.load(fd)
+        with open("file.json", encoding="UTF8") as f:
+            content = json.load(f)
 
         self.assertTrue(type(content) is dict)
 
     def test_the_type_file_content(self):
         """ test JSON serialization and deserialization """
         self.storage.save()
-        self.storage.new(self.my_model)
+        self.storage.new(self.test_model)
 
-        with open("file.json", encoding="UTF8") as fd:
-            content = fd.read()
+        with open("file.json", encoding="UTF8") as f:
+            content = f.read()
 
         self.assertIsInstance(content, str)

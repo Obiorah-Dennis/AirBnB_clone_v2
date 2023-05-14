@@ -15,17 +15,17 @@ class TestUser(unittest.TestCase):
 
     def test_User_inheritance(self):
         """ test that User is a subclass of basemodel """
-        new_user = User()
-        self.assertIsInstance(new_user, BaseModel)
+        test_user = User()
+        self.assertIsInstance(test_user, BaseModel)
 
     def test_User_attributes(self):
         """ test attributes """
 
-        new_user = User()
-        self.assertTrue("email" in new_user.__dir__())
-        self.assertTrue("first_name" in new_user.__dir__())
-        self.assertTrue("last_name" in new_user.__dir__())
-        self.assertTrue("password" in new_user.__dir__())
+        test_user = User()
+        self.assertTrue("email" in test_user.__dir__())
+        self.assertTrue("first_name" in test_user.__dir__())
+        self.assertTrue("last_name" in test_user.__dir__())
+        self.assertTrue("password" in test_user.__dir__())
 
     def test_type_email(self):
         """ test name """

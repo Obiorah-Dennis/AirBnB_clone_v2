@@ -10,16 +10,16 @@ class TestState(unittest.TestCase):
 
     def test_State_inheritence(self):
         """ test that State is a subclass of basemodel """
-        new_state = State()
-        self.assertIsInstance(new_state, BaseModel)
+        test_state = State()
+        self.assertIsInstance(test_state, BaseModel)
 
     def test_State_attributes(self):
         """ tests name """
-        new_state = State()
-        self.assertTrue("name" in new_state.__dir__())
+        test_state = State()
+        self.assertTrue("name" in test_state.__dir__())
 
     def test_State_attributes_type(self):
         """ tests name attribute """
-        new_state = State()
-        name = getattr(new_state, "name")
+        test_state = State()
+        name = getattr(test_state, "name")
         self.assertIsInstance(name, str)

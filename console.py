@@ -28,9 +28,9 @@ class HBNBCommand(cmd.Cmd):
             return
         try:
             args = shlex.split(args)
-            new_instance = eval(args[0])()
-            new_instance.save()
-            print(new_instance.id)
+            new_obj_instance = eval(args[0])()
+            new_obj_instance.save()
+            print(new_obj_instance.id)
         except NameError:
             print("** class doesn't exist **")
 
@@ -45,7 +45,7 @@ class HBNBCommand(cmd.Cmd):
             return
         storage = FileStorage()
         storage.reload()
-        obj_dict = storage.all()
+        obj_dct = storage.all()
         try:
             eval(args[0])
         except NameError:
@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
         key = args[0] + "." + args[1]
         key = args[0] + "." + args[1]
         try:
-            value = obj_dict[key]
+            value = obj_dct[key]
             print(value)
         except KeyError:
             print("** no instance found **")
@@ -72,7 +72,7 @@ class HBNBCommand(cmd.Cmd):
         class_id = args[1]
         storage = FileStorage()
         storage.reload()
-        obj_dict = storage.all()
+        obj_dct = storage.all()
         try:
             eval(class_name)
         except NameError:
@@ -80,7 +80,7 @@ class HBNBCommand(cmd.Cmd):
             return
         key = class_name + "." + class_id
         try:
-            del obj_dict[key]
+            del obj_dct[key]
         except KeyError:
             print("** no instance found **")
             return
@@ -88,7 +88,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """Prints all string representation of all instances."""
-        obj_list = []
+        object_list = []
         storage = FileStorage()
         storage.reload()
         objects = storage.all()
@@ -101,11 +101,11 @@ class HBNBCommand(cmd.Cmd):
         for key, val in objects.items():
             if len(args) != 0:
                 if type(val) is eval(args):
-                    obj_list.append(val)
+                    object_list.append(val)
             else:
-                obj_list.append(val)
+                object_list.append(val)
 
-        print(obj_list)
+        print(object_list)
 
     def do_update(self, args):
         """Updates an instance based on the class name and id by"""
@@ -130,19 +130,19 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
         key = args[0] + "." + args[1]
-        obj_dict = storage.all()
+        obj_dct = storage.all()
         try:
-            obj_value = obj_dict[key]
+            obj_val = obj_dct[key]
         except KeyError:
             print("** no instance found **")
             return
         try:
-            attr_type = type(getattr(obj_value, args[2]))
+            attr_type = type(getattr(obj_val, args[2]))
             args[3] = attr_type(args[3])
         except AttributeError:
             pass
-        setattr(obj_value, args[2], args[3])
-        obj_value.save()
+        setattr(obj_val, args[2], args[3])
+        obj_val.save()
 
     def do_quit(self, args):
         """Quit command to exit the program."""
@@ -154,7 +154,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_count(self, args):
         """fuction to retrieve the number of instances of a class"""
-        obj_list = []
+        object_list = []
         storage = FileStorage()
         storage.reload()
         objects = storage.all()
@@ -167,10 +167,10 @@ class HBNBCommand(cmd.Cmd):
         for key, val in objects.items():
             if len(args) != 0:
                 if type(val) is eval(args):
-                    obj_list.append(val)
+                    object_list.append(val)
             else:
-                obj_list.append(val)
-        print(len(obj_list))
+                object_list.append(val)
+        print(len(object_list))
 
     def emptyline(self):
         """ensures an empty line + ENTER shouldn’t execute anything"""

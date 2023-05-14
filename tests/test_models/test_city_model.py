@@ -12,23 +12,23 @@ class TestUser(unittest.TestCase):
 
     def test_City_inheritance(self):
         """ test that city is a subclass of basemodel """
-        new_city = City()
-        self.assertIsInstance(new_city, BaseModel)
+        test_city = City()
+        self.assertIsInstance(test_city, BaseModel)
 
     def test_User_attributes(self):
         """ test attributes """
-        new_city = City()
-        self.assertTrue("state_id" in new_city.__dir__())
-        self.assertTrue("name" in new_city.__dir__())
+        test_city = City()
+        self.assertTrue("state_id" in test_city.__dir__())
+        self.assertTrue("name" in test_city.__dir__())
 
     def test_type_name(self):
         """ test name """
-        new_city = City()
-        name = getattr(new_city, "name")
+        test_city = City()
+        name = getattr(test_city, "name")
         self.assertIsInstance(name, str)
 
     def test_type_name(self):
         """ test name """
-        new_city = City()
-        name = getattr(new_city, "state_id")
+        test_city = City()
+        name = getattr(test_city, "state_id")
         self.assertIsInstance(name, str)

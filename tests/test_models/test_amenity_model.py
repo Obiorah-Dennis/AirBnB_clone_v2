@@ -12,16 +12,16 @@ class TestAmenity(unittest.TestCase):
 
     def test_Amenity_inheritence(self):
         """ test that amenity is a subclass of basemodel """
-        new_amenity = Amenity()
-        self.assertIsInstance(new_amenity, BaseModel)
+        test_amenity = Amenity()
+        self.assertIsInstance(test_amenity, BaseModel)
 
     def test_Amenity_attributes(self):
         """ test name """
-        new_amenity = Amenity()
-        self.assertTrue("name" in new_amenity.__dir__())
+        test_amenity = Amenity()
+        self.assertTrue("name" in test_amenity.__dir__())
 
     def test_Amenity_attribute_type(self):
         """ test name """
-        new_amenity = Amenity()
-        name_value = getattr(new_amenity, "name")
+        test_amenity = Amenity()
+        name_value = getattr(test_amenity, "name")
         self.assertIsInstance(name_value, str)
