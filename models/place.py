@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 """ module place that inherits from BaseModel """
 from models.base_model import BaseModel
 
