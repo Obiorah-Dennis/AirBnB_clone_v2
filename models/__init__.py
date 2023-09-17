@@ -1,19 +1,15 @@
 #!/usr/bin/python3
-""" initializes BaseModel """
+"""This module instantiates an instance of the Storage will be used"""
 
-from models.engine.file_storage import FileStorage
-from models.base_model import BaseModel
-from models.review import Review
-from models.amenity import Amenity
-from models.city import City
-from models.state import State
-from models.place import Place
-from models.user import User
+from os import getenv
 
-classes = {"BaseModel": BaseModel, "User": User,
-           "State": State, "City": City,
-           "Place": Place, "Amenity": Amenity,
-           "Review": Review}
+storage_type = getenv('HBNB_TYPE_STORAGE')
 
-storage = FileStorage()
+if storage_type == 'db':
+    from models.engine.db_storage import DBStorage
+    storage = DBStorage()
+else:
+    from models.engine.file_storage import FileStorage
+    storage = FileStorage()
+
 storage.reload()
