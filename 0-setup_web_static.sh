@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+<<<<<<< HEAD
 # sets up my web servers for the deployment of web_static
 
 echo -e "\e[1;32m START\e[0m"
@@ -46,3 +47,42 @@ echo
 #--restart NGINX
 sudo service nginx restart
 echo -e "\e[1;32m restart NGINX\e[0m"
+=======
+# Sets up a web server for deployment of web_static.
+
+apt-get update
+apt-get install -y nginx
+
+mkdir -p /data/web_static/releases/test/
+mkdir -p /data/web_static/shared/
+echo "Hello Word" > /data/web_static/releases/test/index.html
+ln -sf /data/web_static/releases/test/ /data/web_static/current
+
+chown -R ubuntu /data/
+chgrp -R ubuntu /data/
+
+printf %s "server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
+    add_header X-Served-By $HOSTNAME;
+    root   /var/www/html;
+    index  index.html index.htm;
+
+    location /hbnb_static {
+	alias /data/web_static/current;
+	index index.html index.htm;
+    }
+
+    location /redirect_me {
+	return 301 http://cuberule.com/;
+    }
+
+    error_page 404 /404.html;
+    location /404 {
+      root /var/www/html;
+      internal;
+    }
+}" > /etc/nginx/sites-available/default
+
+service nginx restart
+>>>>>>> 69074df209c2b79906b0eb68be4fd17b107c808a
