@@ -6,7 +6,7 @@ from fabric.api import *
 import os
 import shlex
 
-env.hosts = ['35.227.82.74', '35.231.166.249']
+env.hosts = ['52.91.127.195', '100.26.174.111']
 env.user = 'ubuntu'
 
 
