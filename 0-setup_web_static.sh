@@ -1,62 +1,48 @@
 #!/usr/bin/env bash
-# Installs, configures, and starts the web server
-SERVER_CONFIG="server {
-	listen 80 default_server;
-	listen [::]:80 default_server;
+# sets up my web servers for the deployment of web_static
 
-	server_name _;
-	index index.html index.htm;
-	error_page 404 /404.html;
-	add_header X-Served-By \$hostname;
+echo -e "\e[1;32m START\e[0m"
 
-	location / {
-		root /var/www/html/;
-		try_files \$uri \$uri/ =404;
-	}
+#--Updating the packages
+sudo apt-get -y update
+sudo apt-get -y install nginx
+echo -e "\e[1;32m Packages updated\e[0m"
+echo
 
-	location /hbnb_static/ {
-		alias /data/web_static/current/;
-		try_files \$uri \$uri/ =404;
-	}
+#--configure firewall
+sudo ufw allow 'Nginx HTTP'
+echo -e "\e[1;32m Allow incomming NGINX HTTP connections\e[0m"
+echo
 
-	if (\$request_filename ~ redirect_me) {
-		rewrite ^ https://sketchfab.com/bluepeno/models permanent;
-	}
+#--created the dir
+sudo mkdir -p /data/web_static/releases/test /data/web_static/shared
+echo -e "\e[1;32m directories created"
+echo
 
-	location = /404.html {
-		root /var/www/error/;
-		internal;
-	}
-}"
-HOME_PAGE="<!DOCTYPE html>
-<html lang='en-US'>
-	<head>
-		<title>Home - AirBnB Clone</title>
-	</head>
-	<body>
-		<h1>Welcome to AirBnB!</h1>
-	<body>
-</html>
-"
-# shellcheck disable=SC2230
-if [[ "$(which nginx | grep -c nginx)" == '0' ]]; then
-    apt-get update
-    apt-get -y install nginx
-fi
-mkdir -p /var/www/html /var/www/error
-chmod -R 755 /var/www
-echo 'Hello World!' > /var/www/html/index.html
-echo -e "Ceci n\x27est pas une page" > /var/www/error/404.html
+#--adds test string
+echo "<h1>Welcome to www.uniqueel.tech</h1>" > /data/web_static/releases/test/index.html
+echo -e "\e[1;32m Test string added\e[0m"
+echo
 
-mkdir -p /data/web_static/releases/test /data/web_static/shared
-echo -e "$HOME_PAGE" > /data/web_static/releases/test/index.html
-[ -d /data/web_static/current ] && rm -rf /data/web_static/current
-ln -sf /data/web_static/releases/test/ /data/web_static/current
-chown -hR ubuntu:ubuntu /data
-bash -c "echo -e '$SERVER_CONFIG' > /etc/nginx/sites-available/default"
-ln -sf '/etc/nginx/sites-available/default' '/etc/nginx/sites-enabled/default'
-if [ "$(pgrep -c nginx)" -le 0 ]; then
-	service nginx start
-else
-	service nginx restart
-fi
+#--prevent overwrite
+if [ -d "/data/web_static/current" ];
+then
+    echo "path /data/web_static/current exists"
+    sudo rm -rf /data/web_static/current;
+fi;
+echo -e "\e[1;32m prevent overwrite\e[0m"
+echo
+
+#--create symbolic link
+sudo ln -sf /data/web_static/releases/test/ /data/web_static/current
+sudo chown -hR ubuntu:ubuntu /data
+
+sudo sed -i '38i\\tlocation /hbnb_static/ {\n\t\talias /data/web_static/current/;\n\t}\n' /etc/nginx/sites-available/default
+
+sudo ln -sf '/etc/nginx/sites-available/default' '/etc/nginx/sites-enabled/default'
+echo -e "\e[1;32m Symbolic link created\e[0m"
+echo
+
+#--restart NGINX
+sudo service nginx restart
+echo -e "\e[1;32m restart NGINX\e[0m"
