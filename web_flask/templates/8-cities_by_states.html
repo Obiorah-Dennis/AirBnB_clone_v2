@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+      <H1>States</H1>
+      <UL>
+	{% for state in S %}
+        <LI>{{state.0}}: <B>{{state.1}}</B>
+	  <UL>
+	    {% for city in C %}
+	    {%- if city.0 == state.1 %}
+	    <LI>{{city.1}}: <B>{{city.2}}</B></LI>
+	    {% endif -%}
+	    {% endfor %}
+	  </UL>
+	 </LI>
+	 {% endfor %}
+      </UL>
+    </BODY>
+</HTML>

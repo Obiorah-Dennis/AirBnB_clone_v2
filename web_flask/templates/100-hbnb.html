@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" type="text/css" href="../static/styles/4-common.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-header.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/3-footer.css">
+    <link rel="stylesheet" type="text/css" href="../static/styles/6-filters.css">
+    <link type="text/css" rel="stylesheet" href="../static/styles/8-places.css">
+    <link rel="icon" href="../static/images/icon.png" />
+    <title>HBnB</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo"></div>
+    </header>
+    <div class="container">
+      <section class="filters">
+	<div class="locations">
+	  <h3>States</h3>
+	  <h4>&nbsp;</h4>
+	  <div class="popover">
+            <ul>
+	      {% for state in S %}
+	      <h2>{{state.1}}</h2>
+	      <ul>
+		{% for city in C %}
+		{% if city.2 == state.0 %}
+		<li>{{city.1}}</li>
+		{% endif %}
+		{% endfor %}
+	      </ul>
+	      {% endfor %}
+	    </ul>
+	  </div>
+	</div>
+	<div class="amenities">
+	 <h3>Amenities</h3>
+	 <h4>&nbsp;</h4>
+	 <div class="popover">
+	   <ul>
+	     {% for amenity in A %}
+	     <li>{{amenity.1}}</li>
+	     {% endfor %}
+	   </ul>
+	 </div>
+	</div>
+	<button type="button">Search</button>
+      </section>
+      <section class="places">
+	<h1>Places</h1>
+	{% for place in P %}
+	<article>
+	  <div class="title_box">
+	    <h2>{{place.0}}</h2>
+	    <div class="price_by_night">${{place.1}}</div>
+	  </div>
+	  <div class="information">
+	    <div class="max_guest">{{place.2}} Guests</div>
+            <div class="number_rooms">{{place.3}} Bedroom</div>
+            <div class="number_bathrooms">{{place.4}} Bathroom</div>
+	  </div>
+	  <div class="user">
+            <b>Owner:</b> {{place.5}} {{place.6}}
+          </div>
+          <div class="description">
+	    {{place.7 |safe}}
+          </div>
+	</article>
+	{% endfor %}
+      </section>
+    </div>
+    <footer>
+      <p>Holberton School</p>
+    </footer>
+  </body>
+</html>

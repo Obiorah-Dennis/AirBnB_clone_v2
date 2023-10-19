@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+      <H1>States</H1>
+      <UL>
+	 {% for item in tupla %}
+         <LI>{{item.1}}: <B>{{item.0}}</B></LI>
+	 {% endfor %}
+      </UL>
+    </BODY>
+</HTML>

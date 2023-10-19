@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+      {% if F == 3 %}
+      <H1>States</H1>
+      <UL>
+	{% for state in S %}
+	<LI>{{state.0}}: <B>{{state.1}}</B></LI>
+	{% endfor %}
+      </UL>
+      {% elif F == 0 %}
+      <h1>Not found!</h1>
+      {% else %}
+      <H1>State: {{S.0.1}}</H1>
+        <H3>Cities:</H3>
+        <UL>
+	  {% for city in C %}
+	  <LI>{{city.0}}: <B>{{city.1}}</B></LI>
+	  {% endfor %}
+	</UL>
+      {% endif %}
+    </BODY>
+</HTML>
